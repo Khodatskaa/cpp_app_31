@@ -9,5 +9,10 @@
     <ClCompile Include="main.cpp">
       <Filter>Main</Filter>
     </ClCompile>
+    <ClCompile Include="DoubleList.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="DoubleList.h" />
+    <ClInclude Include="Node.h" />
   </ItemGroup>
 </Project>
