@@ -2,23 +2,24 @@
 #define Queue_h
 
 #include <iostream>
-#include <string>	
+#include <string>
+#include "Node.h"
+using namespace std;
 
 template <class T>
 class Queue{
 private:
-    class Node;
-
-    Node* front;
-    Node* back;
+    Node<T>* front;
+    Node<T>* back;
 
 public:
     Queue();
 
-    void queue(const T& value);
-    void queue();
-    T frontElement() const;
     bool isEmpty() const;
+    void enqueue(const T& value);
+    void dequeue();
+    T frontValue() const;
+    void display() const;
 
     ~Queue();
 };
