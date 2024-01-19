@@ -6,12 +6,7 @@
 
 class DoubleList {
 private:
-    struct Node {
-        int data;
-        Node* prev;
-        Node* next;
-        Node(int value) : data(value), prev(nullptr), next(nullptr) {}
-    };
+    class Node;
 
     Node* head;
     Node* tail;
