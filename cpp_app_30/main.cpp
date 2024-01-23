@@ -1,52 +1,41 @@
-#include <iostream>
 #include "Array.h"
+#include <iostream>
 
 int main() {
-    Array<int> intArray;
-    intArray.SetSize(5);
+    Array<int> arr;
 
-    for (int i = 0; i < 5; ++i) {
-        intArray.Add(i * 2);
+    arr.SetSize(5, 5);
+    std::cout << "Array size: " << arr.GetSize() << std::endl;
+
+    for (int i = 0; i < 10; ++i) {
+        arr.Add(i);
     }
 
-
-    std::cout << "First Array:" << std::endl;
-    std::cout << "Elements: ";
-    for (int i = 0; i < intArray.GetSize(); ++i) {
-        std::cout << intArray[i] << " ";
+    std::cout << "Array size after adding 10 elements: " << arr.GetSize() << std::endl;
+    std::cout << "Array contents: ";
+    for (int i = 0; i < arr.GetSize(); ++i) {
+        std::cout << arr[i] << " ";
     }
     std::cout << std::endl;
-    std::cout << "Size: " << intArray.GetSize() << std::endl;
-    std::cout << "Upper Bound: " << intArray.GetUpperBound() << std::endl;
-    std::cout << std::endl;
 
-    Array<int> anotherIntArray;
-    anotherIntArray.SetSize(3);
-    for (int i = 0; i < anotherIntArray.GetSize(); ++i) {
-        anotherIntArray[i] = i * 3;
+    Array<int> arr2;
+    arr2.SetSize(3, 3);
+    for (int i = 100; i < 106; ++i) {
+        arr2.Add(i);
     }
 
-    std::cout << "Second Array:" << std::endl;
-    std::cout << "Elements: ";
-    for (int i = 0; i < anotherIntArray.GetSize(); ++i) {
-        std::cout << anotherIntArray[i] << " ";
+    std::cout << "Second array size: " << arr2.GetSize() << std::endl;
+    std::cout << "Second array contents: ";
+    for (int i = 0; i < arr2.GetSize(); ++i) {
+        std::cout << arr2[i] << " ";
     }
     std::cout << std::endl;
-    std::cout << "Size: " << anotherIntArray.GetSize() << std::endl;
-    std::cout << "Upper Bound: " << anotherIntArray.GetUpperBound() << std::endl;
-    std::cout << std::endl;
 
-    anotherIntArray.SetSize(5);
-    std::cout << "Updated Second Array:" << std::endl;
-    std::cout << "Size: " << anotherIntArray.GetSize() << std::endl;
-    std::cout << "Upper Bound: " << anotherIntArray.GetUpperBound() << std::endl;
-    std::cout << std::endl;
-
-    intArray.Append(anotherIntArray);
-    std::cout << "Merged Arrays:" << std::endl;
-    std::cout << "Elements: ";
-    for (int i = 0; i < intArray.GetSize(); ++i) {
-        std::cout << intArray[i] << " ";
+    arr.Append(arr2);
+    std::cout << "Array size after appending the second array: " << arr.GetSize() << std::endl;
+    std::cout << "Array contents: ";
+    for (int i = 0; i < arr.GetSize(); ++i) {
+        std::cout << arr[i] << " ";
     }
     std::cout << std::endl;
 

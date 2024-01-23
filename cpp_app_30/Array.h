@@ -1,5 +1,7 @@
 #ifndef ARRAY_H
 #define ARRAY_H
+
+#include <iostream>
 #include "Node.h"
 
 template <typename T>
@@ -29,39 +31,41 @@ public:
     }
 
     void SetSize(int newSize, int newGrow = 1) {
-        if (newSize <= capacity) {
-            size = newSize;
+        if (newSize == size) {
             return;
         }
 
-        Node<T>* newHead = new Node<T>;
-        Node<T>* current = head;
-        Node<T>* newCurrent = newHead;
+        if (newSize < size) {
+            Node<T>* current = tail;
 
-        for (int i = 0; i < size; ++i) {
-            newCurrent->data = current->data;
-            newCurrent->prev = nullptr;
+            while (size > newSize) {
+                Node<T>* prev = current->prev;
+                delete current;
+                current = prev;
+                size--;
+            }
 
-            if (current->next) {
-                newCurrent->next = new Node<T>;
-                newCurrent->next->prev = newCurrent;
-                newCurrent = newCurrent->next;
+            tail = current;
+            if (tail) {
+                tail->next = nullptr;
             }
             else {
-                newCurrent->next = nullptr;
+                head = nullptr;
+            }
+        }
+        else {
+            int elementsToAdd = newSize - size;
+
+            if (elementsToAdd > grow) {
+                grow = elementsToAdd;  
             }
 
-            current = current->next;
+            for (int i = 0; i < elementsToAdd; ++i) {
+                Add(T());  
+            }
         }
-
-        delete head;
-
-        head = newHead;
-        tail = newCurrent;
-        size = newSize;
-        capacity = newSize;
-        grow = newGrow;
     }
+
 
     void Add(const T& element) {
         if (size + 1 > capacity) {
@@ -162,7 +166,6 @@ public:
             size--;
         }
         else {
-            // Handle index out of bounds
         }
     }
 
@@ -174,10 +177,9 @@ public:
 
     void RemoveAll() {
         Node<T>* current = head;
-        Node<T>* nextNode = nullptr;
 
         while (current) {
-            nextNode = current->next;
+            Node<T>* nextNode = current->next;
             delete current;
             current = nextNode;
         }
@@ -187,6 +189,7 @@ public:
         size = 0;
         capacity = 0;
     }
+
 
     void SetAt(int index, const T& value) {
         Node<T>* current = head;
@@ -213,18 +216,23 @@ public:
             return current->data;
         }
         else {
-            // Handle index out of bounds
             return T();
         }
     }
 
     T* GetData() const {
-        if (head) {
-            return &head->data;
+        if (size == 0) {
+            return nullptr; 
         }
-        else {
-            return nullptr;
+
+        T* data = new T[size];
+        Node<T>* current = head;
+        for (int i = 0; i < size; ++i) {
+            data[i] = current->data;
+            current = current->next;
         }
+
+        return data;
     }
 
     T& operator[](int index) {
